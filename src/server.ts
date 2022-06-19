@@ -18,6 +18,7 @@ export const server = createServer((req, res) => {
     }
     if (req.url && req.url.match(/\/api\/users\/\w+/)) {
       const id = req.url.split('/')[3];
+
       if (isUUIDV4(id)) {
         if (req.method === 'GET') {
           return getUser(req, res, id);
@@ -30,6 +31,9 @@ export const server = createServer((req, res) => {
         if (req.method === 'DELETE') {
           return deleteUser(req, res, id);
         }
+
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Looks like you specified a wrong method for the url' }));
       }
       res.writeHead(400, { 'Content-Type': 'application/json' });
       res.end(
