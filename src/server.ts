@@ -37,10 +37,7 @@ export const server = createServer((req, res) => {
       }
       res.writeHead(400, { 'Content-Type': 'application/json' });
       res.end(
-        JSON.stringify({
-          message: `The id, that you've entered (${id}), is not valid!\n
-        It must be of type uuidv4`,
-        })
+        JSON.stringify({ message: `The id, that you've entered (${id}), is not valid! It must be of type uuidv4` })
       );
     } else {
       {

@@ -102,5 +102,20 @@ export const updateUser = async (req: IncomingMessage, res: ServerResponse, id: 
 };
 
 export const deleteUser = async (req: IncomingMessage, res: ServerResponse, id: UserId): Promise<void> => {
-  console.log(`delete ${id}`);
+  try {
+    const user = await getUserById(id);
+    if (!user) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end('User was not found');
+      return;
+    }
+
+    await remove(id);
+    res.writeHead(204);
+    res.end();
+
+  } catch (error) {
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: 'There is a bug in the electrical system!!!' }));
+  }
 };
