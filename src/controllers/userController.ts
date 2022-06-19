@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { getAllUsers, getById, create, update, remove } from '../models/userModel';
+import { getAllUsers, create, update, remove, getUserById } from '../models/userModel';
 import { getBodyData } from '../utils/getBodyData';
+import { UserId } from '../interfaces';
 
 export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
   try {
@@ -41,4 +42,28 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse): Pro
     res.writeHead(500, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'There is a bug in the electrical system!!!' }));
   }
+};
+
+export const getUser = async (req: IncomingMessage, res: ServerResponse, id: UserId): Promise<void> => {
+  try {
+    const user = await getUserById(id);
+    if (!user) {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end('User was not found');
+      return;
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(user));
+  } catch (error) {
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: 'There is a bug in the electrical system!!!' }));
+  }
+};
+
+export const updateUser = async (req: IncomingMessage, res: ServerResponse, id: UserId): Promise<void> => {
+  console.log(`update ${id}`);
+};
+
+export const deleteUser = async (req: IncomingMessage, res: ServerResponse, id: UserId): Promise<void> => {
+  console.log(`delete ${id}`);
 };

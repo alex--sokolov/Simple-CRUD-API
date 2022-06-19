@@ -9,7 +9,7 @@ export const getAllUsers = (): Promise<IUser[]> => {
   });
 };
 
-export const getById = (id: UserId): Promise<IUser | undefined> => {
+export const getUserById = (id: UserId): Promise<IUser | undefined> => {
   return new Promise((resolve) => {
     const userRequested = users.find((user) => user.id === id);
     resolve(userRequested);
