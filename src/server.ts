@@ -1,15 +1,19 @@
 import { createServer } from 'http';
-import { users } from './models/userModel';
+import { getUsers, createUser } from './controllers/userController';
 
 const PORT = process.env.PORT || 5000;
 
 export const server = createServer((req, res) => {
   try {
     if (req.url === '/api/users') {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.write(JSON.stringify(users));
-      res.end();
+      if (req.method === 'GET') {
+        return getUsers(req, res);
+      }
+      if (req.method === 'POST') {
+        return createUser(req, res);
+      }
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: 'Looks like you specified a wrong method for the url' }));
     } else {
       {
         res.writeHead(404, { 'Content-Type': 'application/json' });
