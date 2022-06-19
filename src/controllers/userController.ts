@@ -113,7 +113,6 @@ export const deleteUser = async (req: IncomingMessage, res: ServerResponse, id: 
     await remove(id);
     res.writeHead(204);
     res.end();
-
   } catch (error) {
     res.writeHead(500, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: 'There is a bug in the electrical system!!!' }));

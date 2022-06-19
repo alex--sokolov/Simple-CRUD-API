@@ -8,3 +8,8 @@ export interface IUser {
   age: number;
   hobbies: string[] | [];
 }
+
+export interface IWorkerMessage {
+  users: IUser[];
+  pid: number;
+}

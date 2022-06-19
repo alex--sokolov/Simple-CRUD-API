@@ -7,7 +7,6 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
-//    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
 
   "parser": "@typescript-eslint/parser",
@@ -16,25 +15,6 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-//  "overrides": [
-//    {
-//      "files": ["*.ts"], // Your TypeScript files extension
-//
-//      // As mentioned in the comments, you should extend TypeScript plugins here,
-//      // instead of extending them outside the `overrides`.
-//      // If you don't want to extend any rules, you don't need an `extends` attribute.
-//      "extends": [
-//        "plugin:@typescript-eslint/recommended",
-//        "plugin:@typescript-eslint/recommended-requiring-type-checking"
-//      ],
-//
-//      "parserOptions": {
-//        "project": [
-//          "./tsconfig.json"
-//        ] // Specify it only for TypeScript files
-//      }
-//    }
-//  ],
   "plugins": ["import", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": [
@@ -46,6 +26,7 @@
         "printWidth": 120,
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "@typescript-eslint/no-loop-func": "off"
   }
 }

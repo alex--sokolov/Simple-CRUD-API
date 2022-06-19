@@ -51,4 +51,4 @@ export const server = createServer((req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server started. Port ${PORT}. Pid: ${process.pid}`));
