@@ -4,6 +4,7 @@ export const getBodyData = (req: IncomingMessage, res: ServerResponse): Promise<
   return new Promise((resolve, reject) => {
     try {
       let body = '';
+      req.setEncoding('utf8');
       req.on('data', (chunk: Buffer): void => {
         body += chunk.toString();
       });

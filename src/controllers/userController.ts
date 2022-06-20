@@ -5,6 +5,7 @@ import { UserId } from '../interfaces';
 
 export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
   try {
+    console.log('INSIDE GET USERS');
     const users = await getAllUsers();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(users));
@@ -31,8 +32,8 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse): Pro
         };
         const newUser = await create(user);
         res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.write('User was created successfully!\n');
-        res.end(JSON.stringify(newUser));
+        const message = 'User was created successfully!';
+        res.end(JSON.stringify({ message: message, newUser }));
       }
     } catch (error) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -49,7 +50,7 @@ export const getUser = async (req: IncomingMessage, res: ServerResponse, id: Use
     const user = await getUserById(id);
     if (!user) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('User was not found');
+      res.end(JSON.stringify({ message: 'User was not found' }));
       return;
     }
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -65,7 +66,7 @@ export const updateUser = async (req: IncomingMessage, res: ServerResponse, id: 
     const user = await getUserById(id);
     if (!user) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('User was not found');
+      res.end(JSON.stringify({ message: 'User was not found' }));
       return;
     }
     try {
@@ -84,8 +85,8 @@ export const updateUser = async (req: IncomingMessage, res: ServerResponse, id: 
           };
           const userUpdated = await update(id, userInfo);
           res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.write('User was  updated successfully!\n');
-          res.end(JSON.stringify(userUpdated));
+          const message = 'User was updated successfully!';
+          res.end(JSON.stringify({ message, userUpdated }));
         }
       } catch (error) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
